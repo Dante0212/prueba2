@@ -1,0 +1,127 @@
+<odoo>
+    <record id="view_joyeria_reparacion_form" model="ir.ui.view">
+        <field name="name">joyeria.reparacion.form</field>
+        <field name="model">joyeria.reparacion</field>
+        <field name="arch" type="xml">
+            <form string="Orden de Reparación">
+                <sheet>
+                    <group col="2">
+                        <!-- Información General -->
+                        <group string="Información General" col="2">
+                            <field name="name" readonly="1"/>
+                            <field name="cliente_id"/>
+                            <field name="apellido_cliente"/>
+                            <field name="correo_cliente"/>
+                            <field name="telefono"/>
+                            <field name="direccion_entrega"/>
+                            <field name="responsable_id"/>
+                            <field name="qr" widget="image" class="oe_avatar" readonly="1"/>
+                            
+                        </group>
+
+                        <!-- Producto y Servicio -->
+                        <group string="Producto y Servicio" col="2">
+                            <field name="servicio"/>
+                            <field name="producto_id"/>
+                            <field name="modelo"/>
+                            <field name="cantidad"/>
+                            <field name="tipo_joya" visibility_condition="servicio == 'reparacion'"/>
+                            <field name="metal"/>
+                            <field name="n_cm_reparacion" visibility_condition="servicio == 'reparacion'"/>
+                            <field name="n_cm_fabricacion" visibility_condition="servicio == 'fabricacion'"/>
+                            <field name="peso"/>
+                            <field name="peso_valor" visibility_condition="peso ['estandar', 'especial']"/>
+                            <field name="solicitud_cliente" colspan="2"/>
+                        </group>
+
+                        <!-- Recepción y Entrega -->
+                        <group string="Recepción y Entrega" col="2">
+                            <field name="vendedora_id" options="{'no_create': True, 'no_create_edit': True}" placeholder="Escanea el QR de la vendedora" />
+                            <field name="local_tienda"/>
+                            <field name="fecha_recepcion" readonly="1"/>
+                            <field name="fecha_entrega"/>
+                            <field name="vencimiento_garantia"/>
+                            <field name="estado" groups="base.group_system"/>
+                            <field name="express"/>
+                        </group>
+
+                        <!-- Datos Financieros -->
+                        <group string="Datos Financieros" col="2">
+                            <field name="precio_unitario" groups="base.group_system"/>
+                            <field name="subtotal" readonly="1"/>
+                            <field name="abono"/>
+                            <field name="saldo" readonly="1"/>
+                        </group>
+
+                        <!-- Notas y Comentarios -->
+                        <group string="Notas y Comentarios" col="2">
+                            <field name="notas"/>
+                            <field name="comentarios"/>
+                        </group>
+                    </group>
+
+                    <!-- Pestaña Operaciones -->
+                    <notebook>
+                        <page string="Operaciones">
+                            <field name="lineas_operacion_ids">
+                                <tree editable="bottom">
+                                    <field name="producto_id"/>
+                                    <field name="descripcion"/>
+                                    <field name="cantidad"/>
+                                    <field name="unidad_medida"/>
+                                    <field name="precio_unitario"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+
+                    <!-- Historial de mensajes -->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </sheet>
+            </form>
+            
+        </field>
+    </record>
+
+    <!-- Vista árbol -->
+    <record id="view_custom_repair_order_tree" model="ir.ui.view">
+        <field name="name">custom.repair.order.tree</field>
+        <field name="model">joyeria.reparacion</field>
+        <field name="arch" type="xml">
+            <tree string="Órdenes de Reparación" create="1"
+                  decoration-info="estado == 'presupuesto'"
+                  decoration-success="estado == 'confirmado'"
+                  decoration-primary="estado == 'reparado'"
+                  decoration-danger="estado == 'cancelado'">
+                <field name="name" string="Referencia de reparación" type="open"/>
+                <field name="producto_id" string="Producto a reparar"/>
+                <field name="cliente_id" string="Cliente"/>
+                <field name="direccion_entrega" string="Dirección de entrega"/>
+                <field name="vencimiento_garantia" string="Vencimiento de la garantía"/>
+                <field name="estado" string="Estado"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Acción y Menú -->
+    <record id="action_joyeria_reparacion_listado" model="ir.actions.act_window">
+        <field name="name">Órdenes de Reparación</field>
+        <field name="res_model">joyeria.reparacion</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p>Desde aquí puedes gestionar todas las órdenes de reparación (RMA).</p>
+        </field>
+    </record>
+
+    <record id="action_joyeria_reparacion" model="ir.actions.act_window">
+        <field name="name">Reparaciones</field>
+        <field name="res_model">joyeria.reparacion</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_joyeria_reparacion_form"/>
+    </record>
+
+    <menuitem id="menu_joyeria_root" name="Reparaciones" action="action_joyeria_reparacion_listado"/>
+</odoo>

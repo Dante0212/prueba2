@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_form_vendedora" model="ir.ui.view">
+            <field name="name">joyeria.vendedora.form</field>
+            <field name="model">joyeria.vendedora</field>
+            <field name="arch" type="xml">
+                <form string="Vendedora">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="codigo_qr" readonly="1"/>
+                            <field name="qr_image" widget="image"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_tree_vendedora" model="ir.ui.view">
+            <field name="name">joyeria.vendedora.tree</field>
+            <field name="model">joyeria.vendedora</field>
+            <field name="arch" type="xml">
+                <tree string="Vendedoras">
+                    <field name="name"/>
+                    <field name="codigo_qr"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_vendedora" model="ir.actions.act_window">
+            <field name="name">Vendedoras</field>
+            <field name="res_model">joyeria.vendedora</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_joyeria_root" name="Reparaciones"/>
+
+        <menuitem id="menu_joyeria_vendedora" name="Vendedoras"
+                  parent="menu_joyeria_root"
+                  action="action_vendedora"/>
+    </data>
+</odoo>

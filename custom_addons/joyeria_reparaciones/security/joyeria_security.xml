@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Crear grupo primero -->
+        <record id="grupo_gestion_estado_reparacion" model="res.groups">
+            <field name="name">Gestión Estado Reparaciones</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+
+        <!-- Permiso especial para el grupo creado -->
+        <record id="joyeria_reparacion_estado_rule" model="ir.model.access">
+            <field name="name">Acceso Gestión Estado Reparaciones</field>
+            <field name="model_id" ref="model_joyeria_reparacion"/>
+            <field name="group_id" ref="joyeria_reparaciones.grupo_gestion_estado_reparacion"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Permisos normales para usuarios -->
+        <record id="joyeria_reparacion_user_rule" model="ir.model.access">
+            <field name="name">Acceso Usuarios Joyeria Reparacion</field>
+            <field name="model_id" ref="model_joyeria_reparacion"/>
+            <field name="group_id" ref="base.group_user"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <!-- Permisos normales para operaciones -->
+        <record id="joyeria_operacion_user_rule" model="ir.model.access">
+            <field name="name">Acceso Usuarios Joyeria Operacion</field>
+            <field name="model_id" ref="model_joyeria_operacion"/>
+            <field name="group_id" ref="base.group_user"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+    </data>
+</odoo>

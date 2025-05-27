@@ -1,0 +1,29 @@
+<odoo>
+  <template id="report_qr_code_document">
+    <t t-call="web.html_container">
+      <t t-set="report_paperformat" t-value="{'format': 'A5', 'orientation': 'Landscape'}"/>
+      <t t-foreach="docs" t-as="o">
+        <div class="page">
+          <h2><t t-esc="o.name"/></h2>
+          <p><strong>Local:</strong> <t t-esc="o.local_tienda"/></p>
+          <p><strong>Cliente:</strong>
+          <t t-esc="(o.cliente_id.name or '') + ' ' + (o.apellido_cliente or '')"/>
+          </p>
+          <p><strong>Servicio:</strong> <t t-esc="o.servicio"/></p>
+          <p><strong>Metal:</strong> <t t-esc="o.metal"/></p>
+          <p><strong>Modelo:</strong> <t t-esc="o.modelo"/></p>
+          <p><strong>Talla:</strong> <t t-esc="o.n_cm_reparacion"/></p>
+          <p><strong>Talla:</strong> <t t-esc="o.n_cm_fabricacion"/></p>
+          <p><strong>Precio:</strong> <t t-esc="o.precio_unitario"/></p>
+          <p><strong>Abono:</strong> <t t-esc="o.abono"/></p>
+          <p><strong>Saldo:</strong> <t t-esc="o.saldo"/></p>
+          <p><strong>Fecha Ingreso:</strong> <t t-esc="o.fecha_recepcion"/></p>
+          <p><strong>Fecha Entrega:</strong> <t t-esc="o.fecha_entrega"/></p>
+
+          <!-- Código QR -->
+          <img t-if="o.qr" t-att-src="'data:image/png;base64,%s' % o.qr.decode('utf-8')" width="100" height="100"/>
+        </div>
+      </t>
+    </t>
+  </template>
+</odoo>

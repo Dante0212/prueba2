@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id,perm_read,perm_write,perm_create,perm_unlink
+access_joyeria_reparacion,access_joyeria_reparacion,model_joyeria_reparacion,,1,1,1,1
+access_joyeria_producto,access_joyeria_producto,model_joyeria_producto,,1,1,1,1
+access_vendedora_all,vendedora access,model_joyeria_vendedora,,1,1,1,1
+
+
+
+
+
